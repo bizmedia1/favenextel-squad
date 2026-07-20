@@ -56,15 +56,13 @@ switch (plan) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          amount,
-          email,
-          currency: "NGN",
-          initiate_type: "inline",
-          first_name: firstName,
-          last_name: lastName,
-
-          callback_url: "https://nextel.com.ng/payment-success"
-        })
+  amount,
+  email,
+  currency: "NGN",
+  initiate_type: "inline",
+  customer_name: `${firstName} ${lastName}`,
+  callback_url: "https://nextel.com.ng/payment-success"
+})
       }
     );
 
