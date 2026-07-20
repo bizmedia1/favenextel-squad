@@ -18,15 +18,18 @@ export default async function handler(req, res) {
   try {
 
     const {
-      plan,
-      email,
-      firstName,
-      lastName
-    } = req.body;
+  plan,
+  email,
+  firstName,
+  lastName
+} = req.body;
 
-    let amount;
+console.log(req.body);
+console.log("Plan received:", plan);
 
-    switch (plan) {
+let amount;
+
+switch (plan) {
 
       case "Diamond E-sim":
         amount = 1050000;
