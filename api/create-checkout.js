@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
   if (req.method !== "POST") {
     return res.status(405).json({
-      status: false,
+      success: false,
       message: "Method not allowed"
     });
   }
@@ -18,11 +18,31 @@ export default async function handler(req, res) {
   try {
 
     const {
+      plan,
       email,
-      amount,
       firstName,
       lastName
     } = req.body;
+
+    let amount;
+
+    switch (plan) {
+
+      case "Diamond E-sim":
+        amount = 1050000;
+        break;
+
+      case "Royal E-sim":
+        amount = 1750000;
+        break;
+
+      default:
+        return res.status(400).json({
+          success: false,
+          message: "Invalid plan selected"
+        });
+
+    }
 
     const response = await fetch(
       "https://api-d.squadco.com/transaction/initiate",
@@ -33,12 +53,14 @@ export default async function handler(req, res) {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          email,
           amount,
+          email,
           currency: "NGN",
+          initiate_type: "inline",
           first_name: firstName,
           last_name: lastName,
-          initiate_type: "inline"
+
+          callback_url: "https://nextel.com.ng/payment-success"
         })
       }
     );
@@ -50,7 +72,7 @@ export default async function handler(req, res) {
   } catch (err) {
 
     return res.status(500).json({
-      status: false,
+      success: false,
       message: err.message
     });
 
