@@ -61,7 +61,7 @@ switch (plan) {
   currency: "NGN",
   initiate_type: "inline",
   customer_name: `${firstName} ${lastName}`,
-  callback_url: "https://nextel.com.ng/payment-success"
+  callback_url: "https://t.me/m/7eczK5fqOWM0"
 })
       }
     );
