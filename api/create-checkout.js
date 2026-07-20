@@ -68,8 +68,18 @@ switch (plan) {
 
     const data = await response.json();
 
-    return res.status(response.status).json(data);
+if (!response.ok || !data.success) {
+  return res.status(response.status).json({
+    success: false,
+    message: data.message || "Unable to initiate payment"
+  });
+}
 
+return res.status(200).json({
+  success: true,
+  checkout_url: data.data.checkout_url,
+  transaction_ref: data.data.transaction_ref
+});
   } catch (err) {
 
     return res.status(500).json({
